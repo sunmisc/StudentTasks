@@ -15,9 +15,11 @@ public final class MathUtils {
 
             double sqrt = Math.sqrt(determinant);
 
+            double t = 2 * a;
+
             return new Pair<>(
-                    (-b + sqrt) / (2 * a),
-                    (-b - sqrt) / (2 * a)
+                    (-b + sqrt) / t,
+                    (-b - sqrt) / t
             );
         } else if (determinant == 0) {
 

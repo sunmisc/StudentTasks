@@ -1,5 +1,6 @@
 package zelvalea.tasks;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class QuadraticSolve {
@@ -21,8 +22,8 @@ public class QuadraticSolve {
                     """;
 
             System.out.printf((info) + "%n",
-                    (r1 == null ? "Нет корня" : r1),
-                    (r2 == null ? "Нет корня" : r2)
+                    Objects.requireNonNullElse(r1, "Нет корня"),
+                    Objects.requireNonNullElse(r2, "Нет корня")
             );
         }
     }

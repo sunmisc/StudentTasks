@@ -5,7 +5,8 @@ public final class MathUtils {
     private MathUtils() {}
 
     public static Pair<Double> quadraticEquation(
-            double a, double b, double c) {
+            double a, double b, double c
+    ) {
         double determinant = (b * b) - (4 * a * c);
 
         if (determinant > 0) {

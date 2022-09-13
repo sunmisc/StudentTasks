@@ -1,5 +1,8 @@
 package zelvalea.tasks;
 
+import zelvalea.tasks.utils.MathUtils;
+import zelvalea.tasks.utils.Pair;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -15,13 +18,10 @@ public class QuadraticSolve {
 
             Double r1 = result.first(), r2 = result.second();
 
-
-            String info = """
+            System.out.printf("""
                     Корень 1: %s
                     Корень 2: %s
-                    """;
-
-            System.out.printf((info) + "%n",
+                    """,
                     Objects.requireNonNullElse(r1, "Нет корня"),
                     Objects.requireNonNullElse(r2, "Нет корня")
             );

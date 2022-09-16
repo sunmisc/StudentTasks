@@ -1,4 +1,4 @@
-package zelvalea.tasks;
+package zelvalea.tasks.lab2;
 
 import zelvalea.tasks.utils.MathUtils;
 import zelvalea.tasks.utils.Pair;

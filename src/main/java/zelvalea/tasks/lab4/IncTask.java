@@ -8,15 +8,17 @@ public class IncTask {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
 
-        if (n < 1)
-            throw new IllegalArgumentException("число должно быть больше нуля");
+        if (n < 1) {
+            System.out.println("число должно быть больше нуля");
+        } else {
 
-        int i = 0;
-        int sum = 0;
-        while (i <= n) {
-            sum += i;
-            i++;
-            System.out.println("Индекс: " + i + " Сумма: " + sum);
+            int i = 0;
+            int sum = 0;
+            while (i <= n) {
+                sum += i;
+                i++;
+                System.out.println("Индекс: " + i + " Сумма: " + sum);
+            }
         }
     }
 

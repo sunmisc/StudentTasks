@@ -32,7 +32,6 @@ public class IncTask {
                 throw new IllegalArgumentException("число должно быть больше нуля");
             /* 1 + 2 + 3 + 4 + 5 = 15 */
 
-            // division by two is a right shift
             int sum0 = MathUtils.sum(n); // sum of an arithmetic progression
 
             if (sum0 < 0)

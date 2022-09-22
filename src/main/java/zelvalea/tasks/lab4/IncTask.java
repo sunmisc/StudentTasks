@@ -1,10 +1,12 @@
 package zelvalea.tasks.lab4;
 
+import zelvalea.tasks.utils.MathUtils;
+
 import java.util.Scanner;
 
 public class IncTask {
 
-    public static void main(String[] args) {
+    public static void main0(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
 
@@ -22,7 +24,7 @@ public class IncTask {
         }
     }
 
-    public static void main0(String[] args) {
+    public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             int n = scanner.nextInt();
 
@@ -31,7 +33,7 @@ public class IncTask {
             /* 1 + 2 + 3 + 4 + 5 = 15 */
 
             // division by two is a right shift
-            int sum0 = (n * (n + 1)) >> 1; // sum of an arithmetic progression
+            int sum0 = MathUtils.sum(n); // sum of an arithmetic progression
 
             if (sum0 < 0)
                 throw new ArithmeticException("ошибка нехватки памяти");

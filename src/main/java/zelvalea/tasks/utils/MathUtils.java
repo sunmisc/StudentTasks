@@ -7,7 +7,9 @@ public final class MathUtils {
 
     public static int sum(int n) {
         int y = n + 1;
-        return (y & 1) == 0 ? n * (y >> 1) : (n >> 1) * y;
+        return (y & 1) == 0
+                ? n * (y >> 1)
+                : (n >> 1) * y;
     }
     public static Pair<Double> quadraticEquation(
             double a, double b, double c

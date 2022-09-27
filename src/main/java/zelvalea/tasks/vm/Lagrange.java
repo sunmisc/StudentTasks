@@ -55,10 +55,10 @@ public class Lagrange {
 
     private static double lagrange(double[] input, double[] output, double point) {
         double r = 0;
-        int xLen = input.length, yLen = output.length;
-        for (int x = 0; x < xLen; x++) {
+        int n = input.length;
+        for (int x = 0; x < n; x++) {
             double p = 1;
-            for (int y = 0; y < yLen; y++) {
+            for (int y = 0; y < n; y++) {
                 if (x != y) {
                     p *= ((point - input[y]) / (input[x] - input[y]));
                 }

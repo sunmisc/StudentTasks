@@ -26,7 +26,7 @@ public class Lagrange {
                 return;
             }
             Reader reader = new InputStreamReader(inputStream);
-            InputData data = MAPPER.readValue(reader, InputData.class);
+            DoubleInputData data = MAPPER.readValue(reader, DoubleInputData.class);
 
             double[] input = data.input;
 
@@ -68,5 +68,5 @@ public class Lagrange {
         return r;
     }
 
-    private record InputData(double[] input) {}
+    private record DoubleInputData(double[] input) {}
 }

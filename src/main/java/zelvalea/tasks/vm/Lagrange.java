@@ -12,7 +12,8 @@ import java.util.Scanner;
 import java.util.function.DoubleUnaryOperator;
 
 public class Lagrange {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER
+            = new ObjectMapper();
     private static final DoubleUnaryOperator FUNCTION =
             x -> Math.tan(x/Math.PI);
 
@@ -28,7 +29,6 @@ public class Lagrange {
             InputData data = MAPPER.readValue(reader, InputData.class);
 
             double[] input = data.input;
-
 
             double[] output = Arrays.stream(input)
                     .map(FUNCTION)
@@ -46,7 +46,6 @@ public class Lagrange {
                 System.out.println("Интерполяционный многочлен Лагранжа: "+l);
                 System.out.println("Погрешность: "+Math.abs(f - l));
 
-
             }
 
         } catch (IOException e) {
@@ -54,17 +53,17 @@ public class Lagrange {
         }
     }
 
-    private static double lagrange(double[] xArray, double[] yArray, double node) {
+    private static double lagrange(double[] input, double[] output, double point) {
         double r = 0;
-        int xLen = xArray.length, yLen = yArray.length;
+        int xLen = input.length, yLen = output.length;
         for (int x = 0; x < xLen; x++) {
             double p = 1;
             for (int y = 0; y < yLen; y++) {
                 if (x != y) {
-                    p *= ((node - xArray[y]) / (xArray[x] - xArray[y]));
+                    p *= ((point - input[y]) / (input[x] - input[y]));
                 }
             }
-            r += p * yArray[x];
+            r += p * output[x];
         }
         return r;
     }

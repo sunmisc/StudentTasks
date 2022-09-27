@@ -20,7 +20,7 @@ public class Lagrange {
     public static void main(String[] args) {
         try (InputStream inputStream = Lagrange.class
                 .getClassLoader()
-                .getResourceAsStream("input_vm.json")
+                .getResourceAsStream("input_data.json")
         ) {
             if (inputStream == null) {
                 return;
@@ -33,6 +33,7 @@ public class Lagrange {
             double[] output = Arrays.stream(input)
                     .map(FUNCTION)
                     .toArray();
+
 
             try (Scanner scanner = new Scanner(System.in).useLocale(Locale.US)) {
                 double node = scanner.nextDouble();

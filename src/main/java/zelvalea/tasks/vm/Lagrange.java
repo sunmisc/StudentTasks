@@ -1,26 +1,30 @@
 package zelvalea.tasks.vm;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.DoubleUnaryOperator;
 
 public class Lagrange {
-    private static final Map<Double, Double> TAB_IO;
+    private static final int INPUT_SIZE = 8;
+    private static final Map<Double, Double> NODES;
 
     private static final DoubleUnaryOperator FUNCTION =
             x -> Math.tan(x/Math.PI);
 
     static {
-        double[] input = {0.9, 0.1, 0.2, 5.5, 9.0, 20.5};
 
-        Map<Double,Double> map = new HashMap<>(input.length);
+        double[] input = ThreadLocalRandom.current()
+                .doubles(INPUT_SIZE, 0, 10)
+                .toArray();
+        Map<Double,Double> map = new HashMap<>(INPUT_SIZE);
         for (double i : input) {
-            map.put(i, FUNCTION.applyAsDouble(i));
+            map.put(i,FUNCTION.applyAsDouble(i));
         }
-        TAB_IO = Collections.unmodifiableMap(map);
+        NODES = Collections.unmodifiableMap(map);
     }
 
     public static void main(String[] args) {
-        System.out.println(parseTable(TAB_IO));
+        System.out.println(parseTable(NODES));
         try (Scanner scanner = new Scanner(System.in).useLocale(Locale.US)) {
             double point = scanner.nextDouble();
 
@@ -28,7 +32,7 @@ public class Lagrange {
 
             System.out.println("f(x)="+f);
 
-            double l = lagrange(TAB_IO, point);
+            double l = lagrange(NODES, point);
 
             System.out.println("Интерполяционный многочлен Лагранжа: "+l);
             System.out.println("Погрешность: "+Math.abs(f - l));
@@ -44,7 +48,7 @@ public class Lagrange {
             Double x = nodeX.getKey(); double p = 1;
             for (Map.Entry<Double,Double> nodeY : nodes) {
                 Double y = nodeY.getKey();
-                if (Objects.equals(x,y))
+                if (x.equals(y))
                     continue;
                 p *= ((point - y) / (x - y));
             }

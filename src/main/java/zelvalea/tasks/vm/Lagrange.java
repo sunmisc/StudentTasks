@@ -1,72 +1,54 @@
 package zelvalea.tasks.vm;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.DoubleUnaryOperator;
 
 public class Lagrange {
-    private static final ObjectMapper MAPPER
-            = new ObjectMapper();
+    private static final Map<Double, Double> TAB_IO;
+
     private static final DoubleUnaryOperator FUNCTION =
             x -> Math.tan(x/Math.PI);
 
+    static {
+        double[] input = {0.9, 0.1, 0.2, 5.5, 9.0, 20.5};
+
+        Map<Double,Double> map = new HashMap<>(input.length);
+        for (double i : input) {
+            map.put(i, FUNCTION.applyAsDouble(i));
+        }
+        TAB_IO = Collections.unmodifiableMap(map);
+    }
+
     public static void main(String[] args) {
-        try (InputStream inputStream = Lagrange.class
-                .getClassLoader()
-                .getResourceAsStream("input_data.json")
-        ) {
-            if (inputStream == null) {
-                return;
-            }
-            Reader reader = new InputStreamReader(inputStream);
-            DoubleInputData data = MAPPER.readValue(reader, DoubleInputData.class);
+        try (Scanner scanner = new Scanner(System.in).useLocale(Locale.US)) {
+            double point = scanner.nextDouble();
 
-            double[] input = data.input;
+            double f = FUNCTION.applyAsDouble(point);
 
-            double[] output = Arrays.stream(input)
-                    .map(FUNCTION)
-                    .toArray();
+            System.out.println("f(x)="+f);
 
+            double l = lagrange(TAB_IO, point);
 
-            try (Scanner scanner = new Scanner(System.in).useLocale(Locale.US)) {
-                double node = scanner.nextDouble();
-
-                double f = FUNCTION.applyAsDouble(node);
-
-                System.out.println("f(x)="+f);
-
-                double l = lagrange(input, output, node);
-
-                System.out.println("Интерполяционный многочлен Лагранжа: "+l);
-                System.out.println("Погрешность: "+Math.abs(f - l));
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Интерполяционный многочлен Лагранжа: "+l);
+            System.out.println("Погрешность: "+Math.abs(f - l));
         }
     }
 
-    private static double lagrange(double[] input, double[] output, double point) {
+    private static double lagrange(Map<Double,Double> io, double point) {
         double r = 0;
-        for (int x = 0, n = input.length; x < n; x++) {
-            double p = 1;
-            for (int y = 0; y < n; y++) {
-                if (x != y) {
-                    p *= ((point - input[y]) / (input[x] - input[y]));
-                }
+
+        Set<Map.Entry<Double,Double>> nodes = io.entrySet();
+
+        for (Map.Entry<Double,Double> nodeX : nodes) {
+            Double x = nodeX.getKey(); double p = 1;
+            for (Map.Entry<Double,Double> nodeY : nodes) {
+                Double y = nodeY.getKey();
+                if (Objects.equals(x,y))
+                    continue;
+                p *= ((point - y) / (x - y));
             }
-            r += p * output[x];
+            r += p * nodeX.getValue();
         }
         return r;
     }
-
-    private record DoubleInputData(double[] input) {}
 }

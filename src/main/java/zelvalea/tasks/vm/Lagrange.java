@@ -20,6 +20,7 @@ public class Lagrange {
     }
 
     public static void main(String[] args) {
+        System.out.println(parseTable(TAB_IO));
         try (Scanner scanner = new Scanner(System.in).useLocale(Locale.US)) {
             double point = scanner.nextDouble();
 
@@ -50,5 +51,10 @@ public class Lagrange {
             r += p * nodeX.getValue();
         }
         return r;
+    }
+    private static <K,V> String parseTable(Map<K,V> map) {
+        StringBuilder builder = new StringBuilder();
+        map.forEach((k,v) -> builder.append(k).append(" = ").append(v).append('\n'));
+        return builder.toString();
     }
 }

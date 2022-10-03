@@ -1,107 +1,74 @@
 package zelvalea.tasks.lab5;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class ArrayTask {
 
-    public static void main1(String[] args) {
+    public static void main_1_8(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             String[] split = scanner.nextLine().split(" ");
             int n = split.length;
             int[] input = new int[n];
+            int minVal = Integer.parseInt(split[0]), minIndex = 0;
+            input[0] = minVal;
+            try {
+                for (int i = 1; i < n; ++i) {
+                    int v = Integer.parseInt(split[i]);
+                    input[i] = v;
+                    if (v < minVal) {
+                        minVal = v; minIndex = i;
+                    }
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            for (int i = minIndex + 1; i < n; ++i) {
+                input[i] = 0;
+            }
+
+            System.out.println("Результат: "+ Arrays.toString(input));
+        }
+    }
+    public static void main_2_8(String[] args) {
+        try (Scanner scanner = new Scanner(System.in)) {
+            String[] split = scanner.nextLine().split(" ");
+            int n = split.length;
+            List<Integer> input = new ArrayList<>(n);
+
+            Integer maxVal = null; int maxIndex = 0;
             try {
                 for (int i = 0; i < n; ++i) {
-                    int q = Integer.parseInt(split[i]);
-                    if ((q & 1) != 0) {
-                        input[i] = q;
+                    int v = Integer.parseInt(split[i]);
+                    input.add(v);
+                    if ((v & 1) == 0 && (maxVal == null || maxVal < v)) {
+                        maxVal = v; maxIndex = i;
                     }
                 }
+                input.remove(maxIndex);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            System.out.println("Результат: "+ Arrays.toString(input));
+
+            System.out.println("Результат: "+ input);
         }
     }
-    public static void main2(String[] args) {
+    public static void main_3_8(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             String[] split = scanner.nextLine().split(" ");
             int n = split.length;
-            int[] input = new int[n];
+
+            // LinkedHashMap был бы намного эффективнее, или BitSet
+            List<Integer> input = new ArrayList<>(n);
             try {
-                for (int i = 0; i < n; ++i) {
-                    int q = Integer.parseInt(split[i]);
-                    input[i] = (q & 1) != 0 ? 1 : q;
+                for (String s : split) {
+                    input.add(Integer.parseInt(s));
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            System.out.println("Результат: "+ Arrays.toString(input));
-        }
-    }
-    public static void main3(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            String[] split = scanner.nextLine().split(" ");
-            int n = split.length;
-            int[] input = new int[n];
-            try {
-                for (int i = 0; i < n; ++i) {
-                    int q = Integer.parseInt(split[i]);
-                    input[i] = q;
-                    // 7 8 7 3 12 0
-                    // 7 0 0 3 12 0
-                    if ((q & 1) != 0 && i > 0) {
-                        input[i - 1] = 0;
-                    }
-                }
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Результат: "+ Arrays.toString(input));
-        }
-    }
-    public static void main4(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            String[] split = scanner.nextLine().split(" ");
-            int n = split.length;
-            int[] input = new int[n];
-            try {
-                // 0 7 8 5 3
-                // 0 9 8 9 3
-                int iMax = n-1;
-                for (int i = iMax; i >= 0; --i) {
-                    int q = Integer.parseInt(split[i]);
-                    input[i] = q;
-                    if ((q & 1) == 0 && i < iMax) {
-                        input[i + 1] = 9;
-                    }
-                }
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Результат: "+ Arrays.toString(input));
-        }
-    }
-    public static void main5(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            String[] split = scanner.nextLine().split(" ");
-            int n = split.length;
-            int[] input = new int[n];
-            try {
-                // 0 7 8 5 3
-                // 0 9 8 9 3
-                int iMax = n-1;
-                for (int i = iMax; i >= 0; --i) {
-                    int q = Integer.parseInt(split[i]);
-                    input[i] = q;
-                    if ((q & 1) == 0 && i < iMax) {
-                        input[i + 1] = 9;
-                    }
-                }
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Результат: "+ Arrays.toString(input));
+
+            input.removeIf(x -> Collections.frequency(input, x) > 1);
+            System.out.println("Результат: "+ input);
         }
     }
 }

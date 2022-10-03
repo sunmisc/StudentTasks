@@ -7,11 +7,11 @@ public class ArrayTask {
     public static void main_1_8(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             String[] split = scanner.nextLine().split(" ");
-            int n = split.length;
-            int[] input = new int[n];
-            int minVal = Integer.parseInt(split[0]), minIndex = 0;
-            input[0] = minVal;
             try {
+                int minVal = Integer.parseInt(split[0]), minIndex = 0;
+                int n = split.length;
+                int[] input = new int[n];
+                input[0] = minVal;
                 for (int i = 1; i < n; ++i) {
                     int v = Integer.parseInt(split[i]);
                     input[i] = v;
@@ -19,14 +19,14 @@ public class ArrayTask {
                         minVal = v; minIndex = i;
                     }
                 }
+                for (int i = minIndex + 1; i < n; ++i) {
+                    input[i] = 0;
+                }
+                System.out.println("Результат: "+ Arrays.toString(input));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            for (int i = minIndex + 1; i < n; ++i) {
-                input[i] = 0;
-            }
 
-            System.out.println("Результат: "+ Arrays.toString(input));
         }
     }
     public static void main_2_8(String[] args) {

@@ -32,7 +32,7 @@ public class IncTask {
                 throw new IllegalArgumentException("число должно быть больше нуля");
             /* 1 + 2 + 3 + 4 + 5 = 15 */
 
-            int sum0 = MathUtils.sum(n); // sum of an arithmetic progression
+            int sum0 = MathUtils.sumArithmeticProgression(n);
 
             if (sum0 < 0)
                 throw new ArithmeticException("ошибка нехватки памяти");

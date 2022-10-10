@@ -6,7 +6,7 @@ import java.util.function.DoubleUnaryOperator;
 
 public class Lagrange {
     private static final int INPUT_SIZE = 8;
-    private static final Map<Double, Double> NODES;
+    private static final Map<Double, Double> TAB_IO;
 
     private static final DoubleUnaryOperator FUNCTION =
             x -> Math.tan(x/Math.PI);
@@ -20,11 +20,11 @@ public class Lagrange {
         for (double i : input) {
             map.put(i,FUNCTION.applyAsDouble(i));
         }
-        NODES = Collections.unmodifiableMap(map);
+        TAB_IO = Collections.unmodifiableMap(map);
     }
 
     public static void main(String[] args) {
-        System.out.println(parseTable(NODES));
+        System.out.println(parseTable(TAB_IO));
         try (Scanner scanner = new Scanner(System.in).useLocale(Locale.US)) {
             double point = scanner.nextDouble();
 
@@ -32,7 +32,7 @@ public class Lagrange {
 
             System.out.println("f(x)="+f);
 
-            double l = lagrange(NODES, point);
+            double l = lagrange(TAB_IO, point);
 
             System.out.println("Интерполяционный многочлен Лагранжа: "+l);
             System.out.println("Погрешность: "+Math.abs(f - l));
@@ -56,6 +56,7 @@ public class Lagrange {
         }
         return r;
     }
+
     private static <K,V> String parseTable(Map<K,V> map) {
         StringBuilder builder = new StringBuilder();
         map.forEach((k,v) -> builder.append(k).append(" = ").append(v).append('\n'));

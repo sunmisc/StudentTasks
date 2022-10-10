@@ -1,18 +1,14 @@
 package zelvalea.tasks.lab6;
 
-public class Polygon {
-    private final Point[] vertex;
-
-    public Polygon(Point[] vertex) {
-        this.vertex = vertex;
-    }
+public record Polygon (Point[] vertex) {
 
     // Шнуровка Гаусса
     public double square() {
         double sum = 0;
 
         for (int i = 0, n = vertex.length, l = n - 1; i < n; i++) {
-            sum += (vertex[l].x() + vertex[i].x()) * (vertex[l].y() - vertex[i].y());
+            Point p = vertex[i], q = vertex[l];
+            sum += (q.x() + p.x()) * (q.y() - p.y());
             l = i;
         }
 

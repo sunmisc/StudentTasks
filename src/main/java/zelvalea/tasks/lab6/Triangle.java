@@ -6,7 +6,7 @@ public record Triangle(Point a, Point b, Point c) {
         return a.distance(b) + b.distance(c) + c.distance(a);
     }
 
-    private static Triangle largerTriangle(Point... source) {
+    public static Triangle largerTriangle(Point... source) {
         int len = source.length;
         if (len < 3) {
             throw new IllegalArgumentException();

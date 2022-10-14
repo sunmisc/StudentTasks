@@ -12,9 +12,9 @@ public class Trees {
             return Double.compare(weight2, weight1);
         });
 
-        trees.add(new Tree("", 3, 15));
-        trees.add(new Tree("", 6, 10));
-        trees.add(new Tree("", 1, 20));
+        trees.add(new Tree("береза", 3, 15));
+        trees.add(new Tree("дуб", 6, 10));
+        trees.add(new Tree("тополь", 1, 20));
 
         System.out.println(trees);
 

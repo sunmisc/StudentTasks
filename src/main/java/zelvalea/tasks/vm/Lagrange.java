@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.DoubleUnaryOperator;
 
-public class Lagrange {
+public final class Lagrange {
     private static final int INPUT_SIZE = 8;
     private static final Map<Double, Double> TAB_IO;
 

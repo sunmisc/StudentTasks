@@ -24,7 +24,7 @@ public class IntegratorSimpson {
 
             t = 0.5 * (olds + t * spacing);
 
-            double s = (4 * t - oldt) / 3.0;
+            double s = (4 * t - oldt) / 3;
 
             if (Math.abs(s - olds) <= accuracy) {
                 return s;

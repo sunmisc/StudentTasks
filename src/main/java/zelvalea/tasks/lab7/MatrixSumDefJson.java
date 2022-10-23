@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
-public class FilesTask {
+public class MatrixSumDefJson {
 
     // jackson
     private static final ObjectMapper MAPPER

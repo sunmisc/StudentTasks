@@ -12,7 +12,7 @@ public class MatrixSumDefSerial {
         main0();
     }
     public static void main0() throws IOException {
-        String resource = "E:\\IdeaProjects\\StudentTasks\\src\\main\\resources\\";
+        String resource = "E:\\lab7\\";
         String[] args = {
                 resource + "/file1/",
                 resource + "/file2/",

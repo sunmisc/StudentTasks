@@ -13,16 +13,13 @@ public class MatrixSumDefSerial {
         if (args.length < 3) throw new IllegalArgumentException();
         String input1 = args[0], input2 = args[1], output = args[2];
 
-        try (FileInputStream fileInput1 = new FileInputStream(input1);
-             FileInputStream fileInput2 = new FileInputStream(input2);
-             ObjectInputStream objectInput1 = new ObjectInputStream(fileInput1);
-             ObjectInputStream objectInput2 = new ObjectInputStream(fileInput2);
-
-             FileOutputStream outputStream = new FileOutputStream(output);
-             ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream)
+        try (
+             ObjectInputStream oi1 = new ObjectInputStream(new FileInputStream(input1));
+             ObjectInputStream oi2 = new ObjectInputStream(new FileInputStream(input2));
+             ObjectOutputStream oo = new ObjectOutputStream(new FileOutputStream(output))
         ) {
-            double[][] matrix1 = (double[][]) objectInput1.readObject();
-            double[][] matrix2 = (double[][]) objectInput2.readObject();
+            double[][] matrix1 = (double[][]) oi1.readObject();
+            double[][] matrix2 = (double[][]) oi2.readObject();
 
             int minX = Math.min(matrix1.length, matrix2.length);
             int minY = Math.min(matrix1[0].length, matrix2[0].length);
@@ -33,7 +30,7 @@ public class MatrixSumDefSerial {
                     dataOutput[x][y] = matrix1[x][y] + matrix2[x][y];
                 }
             }
-            objectOutput.writeObject(dataOutput);
+            oo.writeObject(dataOutput);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

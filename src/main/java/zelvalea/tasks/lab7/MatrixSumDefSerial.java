@@ -52,8 +52,8 @@ public class MatrixSumDefSerial {
                     dataOutput[x][y] = matrix1[x][y] + matrix2[x][y];
                 }
             }
-            System.out.println(Arrays.deepToString(dataOutput));
             writeMatrix(output, dataOutput);
+            System.out.println("Wrote:\n"+Arrays.deepToString(dataOutput));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +61,7 @@ public class MatrixSumDefSerial {
 
     private static void writeMatrix(String path, double[][] data) throws IOException {
         Path outputPath = Path.of(path);
-        System.out.println(outputPath.toAbsolutePath());
+
         if (Files.notExists(outputPath)) { Files.createFile(outputPath); }
 
         try (ObjectOutputStream oo = new ObjectOutputStream(Files.newOutputStream(outputPath))) {

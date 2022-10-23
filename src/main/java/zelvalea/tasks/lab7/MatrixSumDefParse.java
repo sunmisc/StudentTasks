@@ -3,11 +3,14 @@ package zelvalea.tasks.lab7;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Arrays;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MatrixSumDefParse {
+
+    private static final String DELIMITER = " ";
 
     public static void main(String[] args) throws IOException {
         if (args.length < 3) throw new IllegalArgumentException();
@@ -31,7 +34,7 @@ public class MatrixSumDefParse {
 
         String write = Arrays.stream(dataOutput)
                 .map(doubles -> {
-                    StringJoiner joiner = new StringJoiner(" ");
+                    StringJoiner joiner = new StringJoiner(DELIMITER);
                     for (double d : doubles) {
                         joiner.add(Double.toString(d));
                     }
@@ -44,7 +47,7 @@ public class MatrixSumDefParse {
     private static double[][] readMatrix(Stream<String> lines) {
         return lines
                 .map(x -> {
-                    String[] strings = x.split(" ");
+                    String[] strings = x.split(DELIMITER);
                     int n = strings.length;
                     double[] data = new double[n];
                     for (int i = 0; i < n; ++i) {

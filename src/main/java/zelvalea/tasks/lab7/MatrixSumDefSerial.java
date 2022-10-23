@@ -35,17 +35,4 @@ public class MatrixSumDefSerial {
             throw new RuntimeException(e);
         }
     }
-
-    private static double[][] readMatrix(Stream<String> lines) {
-        return lines
-                .map(x -> {
-                    String[] strings = x.split(" ");
-                    int n = strings.length;
-                    double[] data = new double[n];
-                    for (int i = 0; i < n; ++i) {
-                        data[i] = Double.parseDouble(strings[i]);
-                    }
-                    return data;
-                }).toArray(double[][]::new);
-    }
 }

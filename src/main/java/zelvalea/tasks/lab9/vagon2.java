@@ -22,10 +22,10 @@ public class vagon2 extends vagon {
     }
     @Override
     public void VagonInfo() {
-        long c = Arrays
-                .stream(Mesta)
-                .filter(x -> x == 0)
-                .count();
+        int c = 0;
+        for (int i : Mesta) {
+            if (i == 0) c++;
+        }
         System.out.printf("Номер вагона: %s\nСвободно мест: %s%n", NomerEtogoVagona, c);
         super.VagonInfo();
     }

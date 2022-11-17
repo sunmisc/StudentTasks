@@ -4,6 +4,17 @@ import java.util.Arrays;
 
 public class var06 implements test {
 
+    /*
+     * values : [213.0, -123.0, 2.0]
+     * min value: -123.0
+     * --------------------------------------------------
+     * reverseCandidate: 1234567
+     * reverse: 7654321
+     * --------------------------------------------------
+     * array: [1231.0, 888.0, 123.0, -1312.0, -13122.0, 1231.0]
+     * local minimum index: 4
+     */
+
     public static void main(String[] args) {
         var06 v = new var06();
         double[] values = {213,-123,2};

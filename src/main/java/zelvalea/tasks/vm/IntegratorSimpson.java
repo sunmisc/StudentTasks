@@ -7,7 +7,7 @@ public class IntegratorSimpson {
         System.out.println(simpsonRule(0,1, Math.pow(10, -8) * 0.5));
     }
     private static double func(double x) {
-        return Math.exp(x) * Math.cos(x);
+        return Math.exp(-x) / (1 + x);
     }
     public static double simpsonRule(double a, double b, double accuracy) {
         double dx = b - a;

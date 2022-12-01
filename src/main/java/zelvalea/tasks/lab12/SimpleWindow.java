@@ -49,22 +49,25 @@ public class SimpleWindow extends JFrame {
         }
 
         @Override
-        public void windowIconified(WindowEvent e) {
-            e.getWindow().setIconImage(window.closed);
-            super.windowIconified(e);
+        public void windowActivated(WindowEvent e) {
+            super.windowActivated(e);
+            e.getWindow().setIconImage(window.source);
         }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+            super.windowDeactivated(e);
+            e.getWindow().setIconImage(window.closed);
+        }
+        @Override public void windowIconified(WindowEvent e) { super.windowIconified(e); }
         @Override public void windowOpened(WindowEvent e) { super.windowOpened(e); }
 
         @Override public void windowClosing(WindowEvent e) { super.windowClosing(e); }
 
-        @Override public void windowClosed(WindowEvent e) { super.windowClosed(e); }
+        @Override public void windowClosed(WindowEvent e) {super.windowClosed(e);}
 
 
         @Override public void windowDeiconified(WindowEvent e) { super.windowDeiconified(e); }
-
-        @Override public void windowActivated(WindowEvent e) { super.windowActivated(e); }
-
-        @Override public void windowDeactivated(WindowEvent e) { super.windowDeactivated(e); }
 
         @Override public void windowStateChanged(WindowEvent e) { super.windowStateChanged(e); }
 

@@ -30,8 +30,8 @@ public class SimpleWindow extends JFrame {
 
         @Override
         public void componentResized(ComponentEvent e) {
-            Rectangle rectangle = window.getBounds();
-            int h = rectangle.height, w = rectangle.width;
+            Rectangle bounds = e.getComponent().getBounds();
+            int h = bounds.height, w = bounds.width;
             window.textField.setText(w + "x"+ h);
         }
 

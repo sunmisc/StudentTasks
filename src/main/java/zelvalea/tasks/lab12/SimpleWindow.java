@@ -2,7 +2,10 @@ package zelvalea.tasks.lab12;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SimpleWindow extends JFrame {
     private final Image source, closed;
@@ -24,6 +27,7 @@ public class SimpleWindow extends JFrame {
         setIconImage(source);
         addWindowListener(new ChangeIcon(this));
         addComponentListener(new ResizeListener(this));
+
     }
     private record ResizeListener(SimpleWindow window)
             implements ComponentListener {

@@ -2,13 +2,12 @@ package zelvalea.tasks.vm;
 
 import java.util.function.DoubleUnaryOperator;
 
-public final class IntegratorTrapezoid {
-    static final double ACCURACY = 5.0E-9; // 0.5 * 10^-8
-
+public class IntegratorTrapezoid {
+    static final double ACCURACY = Math.pow(10, -8) * 0.5;
     public static void main(String[] args) {
         System.out.println(trapezoidRule(
-                x -> Math.exp(x) / (1 + x),
-                0,1, ACCURACY)
+                x -> x*Math.pow(Math.log(x), 2),
+                2,3, ACCURACY)
         );
     }
     public static double trapezoidRule(DoubleUnaryOperator func,
@@ -25,7 +24,6 @@ public final class IntegratorTrapezoid {
             }
             area = 0.5 * (prev_area + next_area * spacing);
 
-            // equals 64 bits?
             if (Math.abs(area - prev_area) <= accuracy) {
                 return area;
             }

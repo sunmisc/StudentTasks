@@ -9,7 +9,7 @@ public class AffineRotate extends JPanel {
     private static final int[] x = {20, 35, 40};
     private static final int[] y = {30, 20, 30};
 
-    private static final double _2PI = Math.PI * 2;
+    private static final double _2PI     = Math.PI * 2;
     private static final double SEGMENTS = _2PI / 12;
 
     @Override
@@ -22,7 +22,7 @@ public class AffineRotate extends JPanel {
         if (g instanceof Graphics2D g2) {
             for (double i = 0; i < _2PI; i += SEGMENTS) {
                 AffineTransform at = new AffineTransform();
-                at.translate(h_half, w_half);
+                at.translate(w_half, h_half);
 
                 at.rotate(i);
 

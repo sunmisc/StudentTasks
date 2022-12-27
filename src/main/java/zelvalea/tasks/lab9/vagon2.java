@@ -1,7 +1,5 @@
 package zelvalea.tasks.lab9;
 
-import java.util.Arrays;
-
 // signature polymorphic
 public class vagon2 extends vagon {
 

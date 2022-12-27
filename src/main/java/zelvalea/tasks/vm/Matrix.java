@@ -1,7 +1,6 @@
 package zelvalea.tasks.vm;
 
 import java.util.Arrays;
-import java.util.Map;
 
 public class Matrix {
 
@@ -15,37 +14,26 @@ public class Matrix {
         double[] b1 = {
                 -0.9, 0.65, 3.1
         };
-        System.out.println(Arrays.toString(solution(a1, b1, 0.1)));
-        double a = 3,b = -1,e = 0.001, x = 0, q;
-        do {
-            if (f(a) * f2(a) > 0) {
-                x = a;
-            } else if (f(b) * f2(b) > 0) {
-                x = b;
+        double[] result = solution(a1, b1, 0.5);
+
+        int n = a1.length;
+        double[] r = new double[n];
+        for (int i = 0; i < n; ++i) {
+            for (int x = 0; x < n; ++x) {
+                r[x] += a1[x][i] * result[i];
             }
-            q = f(x)/f1(x);
-            x -= q;
-        } while (Math.abs(q) > e);
-        System.out.println(x);
-    }
-    static double f(double x) {
-        return 3 * x - Math.cos(x) - 1;
-    }
-    static double f1(double x) {
-        return 3 + Math.sin(x);
-    }
-    static double f2(double x) {
-        return Math.cos(x);
+        }
+        System.out.println(Arrays.toString(result));
+        System.out.println(Arrays.toString(r));
+        System.out.println(Arrays.toString(b1));
     }
     public static double[] solution(double[][] a, double[] b, double e) {
         int n = b.length;
         double[] output = new double[n];
-        Arrays.setAll(output, i -> a[i][0]);
+        Arrays.setAll(output, i -> b[i]);
 
-        double low, up;
+        double up;
         do {
-            double[] old = output.clone();
-
             for (int x = 0; x < n; ++x) {
                 double s = 0;
                 for (int y = 0; y < n; ++y) {
@@ -55,12 +43,15 @@ public class Matrix {
                     output[x] = b[x] / a[x][x] - s / a[x][x];
                 }
             }
-            up = 0; low = 0;
-            for (int i = 0; i < n; ++i) {
-                up += output[i] - old[i];
-                low += output[i];
+            up = 0;
+            for (int x = 0; x < n; ++x) {
+                double q = 0;
+                for (int y = 0; y < n; ++y) {
+                    q += a[x][y] * output[y];
+                }
+                up += Math.abs(q - b[x]);
             }
-        } while (up / low > e);
+        } while (up > e);
 
         return output;
     }

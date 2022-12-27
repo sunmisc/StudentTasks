@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Task6 {
 
     public static void main(String[] args) {
+
         try (Scanner scanner = new Scanner(System.in)) {
 
             String input = scanner.nextLine();

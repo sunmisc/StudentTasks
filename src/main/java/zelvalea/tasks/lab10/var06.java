@@ -1,6 +1,7 @@
 package zelvalea.tasks.lab10;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class var06 implements test {
 
@@ -16,18 +17,34 @@ public class var06 implements test {
      */
 
     public static void main(String[] args) {
-        var06 v = new var06();
-        double[] values = {213,-123,2};
-        System.out.println("values : "+ Arrays.toString(values));
-        System.out.println("min value: "+v.logika(values[0],values[1],values[2]));
-        System.out.println("-".repeat(50));
-        final int reverseCandidate = 1234567;
-        System.out.println("reverseCandidate: "+ reverseCandidate);
-        v.poka(reverseCandidate);
-        System.out.println("-".repeat(50));
-        double[] a = new double[] {1231, 888, 123, -1312, -13122, 1231};
-        System.out.println("array: " + Arrays.toString(a));
-        v.massivy(a);
+        test("123456789142342343123456789142342343123456789142342343123456789142342343");
+
+
+    }
+    public static void test(String val) {
+        int cursor = 0, len = val.length();
+        while (cursor < len &&
+                val.charAt(cursor) == '0') {
+            cursor++;
+        }
+        int numDigits = len - cursor;
+        int firstGroupLen = numDigits % 9;
+        if (firstGroupLen == 0)
+            firstGroupLen = 9;
+
+        int numWords = numDigits / 9;
+
+        String group = val.substring(cursor, cursor += firstGroupLen);
+        String p = group;
+        List<Integer> list = new ArrayList<>(numWords);
+        list.add(Integer.parseInt(p));
+        while (cursor < len) {
+            group = val.substring(cursor, cursor += 9);
+            int v = Integer.parseInt(group);
+            list.add(v);
+        }
+        System.out.println(list.size() +" " + numWords);
+        System.out.println(list);
     }
 
     @Override
@@ -51,6 +68,7 @@ public class var06 implements test {
         );
     }
     static int binarySearchLocalMinimum(double[] arr, int n) {
+
         int low = 0, high = n - 1;
         while (low <= high) {
             int mid = (high + low) >>> 1; // half
@@ -58,7 +76,7 @@ public class var06 implements test {
             if ((mid == 0 || arr[mid - 1] > arr[mid]) &&
                     (mid == n - 1 || arr[mid + 1] > arr[mid])) {
                 return mid; // index found
-            } else if (mid > 0 && arr[mid - 1] < arr[mid]) {
+            } else if (mid != 0 && arr[mid - 1] < arr[mid]) {
                 high = mid - 1;
             } else {
                 low = mid + 1;

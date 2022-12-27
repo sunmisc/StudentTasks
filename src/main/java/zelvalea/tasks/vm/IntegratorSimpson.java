@@ -4,7 +4,7 @@ package zelvalea.tasks.vm;
 public class IntegratorSimpson {
 
     public static void main(String[] args) {
-        System.out.println(simpsonRule(0,1, Math.pow(10, -8) * 0.5));
+        System.out.println(simpsonRule(1,2, Math.pow(10, -8) * 0.5));
     }
     private static double func(double x) {
         return Math.exp(-x) / (1 + x);

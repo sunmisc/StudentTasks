@@ -63,7 +63,6 @@ public enum SortOps {
         }
     };
 
-
     final int state;
 
     SortOps(int state) {

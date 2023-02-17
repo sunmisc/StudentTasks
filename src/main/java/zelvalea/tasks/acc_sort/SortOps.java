@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public enum SortOps {
 
-    BUDDLE(1) { // O(n^2)
+    BUBBLE(1) { // O(n^2)
         @Override
         public <T> void sort(T[] source, Comparator<T> cmp) {
             boolean isSorted = false;

@@ -31,7 +31,7 @@ public enum SortOps {
             }
         }
     },
-    SELECTION(2) { // O(n^2
+    SELECTION(2) { // O(n^2) best O(n)
         @Override
         public <T> void sort(T[] source, Comparator<T> cmp) {
             for (int i = 0, n = source.length; i < n; i++) {

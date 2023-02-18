@@ -66,11 +66,9 @@ public enum SortOps {
         public <T> StatsSnapshot sort(T[] source, Comparator<T> cmp) {
             int readers = 0, writers = 0;
             for (int i = 1, n = source.length; i < n; i++) {
-                T x = source[i]; int j;
+                T x = source[i]; int j = i;
 
-                readers++; writers++;
-
-                for (j = i; j > 0; readers++) {
+                for (readers++, writers++; j > 0; readers++) {
                     if (cmp.compare(x, source[j - 1]) < 0) {
                         source[i] = source[i - 1];
                         readers++; writers++;

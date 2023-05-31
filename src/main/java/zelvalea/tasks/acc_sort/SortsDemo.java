@@ -3,6 +3,7 @@ package zelvalea.tasks.acc_sort;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -10,7 +11,7 @@ public class SortsDemo {
 
     private static final ObjectMapper MAPPER
             = new ObjectMapper(); // jaskson powered!
-    private static final int ARRAY_SIZE = 8;
+    private static final int ARRAY_SIZE = 6;
 
 
     public static void main(String[] args) throws Throwable {
@@ -24,10 +25,7 @@ public class SortsDemo {
 
             int sortCode = scanner.nextInt();
 
-            SortOps sortOps = SortOps.getById(sortCode)
-                    .orElseThrow(() -> new IllegalArgumentException(
-                            "there is no such sorting algorithm")
-                    );
+            SortOps sortOps = SortOps.BUBBLE;
 
             Double[] in = ThreadLocalRandom.current()
                     .doubles(ARRAY_SIZE)
@@ -36,12 +34,14 @@ public class SortsDemo {
 
             Double[] out = in.clone();
 
-            sortOps.sort(out, Double::compare);
+            System.out.println(sortOps.sort(out, Double::compare));
 
 
+            System.out.println(Arrays.toString(out));
             File result = new File(
-                    "/media/sunmisc/disk_usb/IdeaProjects/StudentTasks/src/main/resources/sort.json");
+                    "sort.json");
 
+            System.out.println(result.getPath());
             if (result.createNewFile()) {
                 System.out.println("file has been created");
             }

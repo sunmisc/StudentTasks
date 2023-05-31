@@ -35,19 +35,21 @@ public enum SortOps {
                         isSorted = false;
                     }
                 }
+                lastIndex--;
             }
             return new StatsSnapshot(readers, writers);
         }
     },
-    SELECTION(2) { // O(n^2) best O(n)
+    SELECTION(2) { // O(n^2)
         @Override
         public <T> StatsSnapshot sort(T[] source, Comparator<T> cmp) {
             int readers = 0, writers = 0;
             for (int i = 0, n = source.length; i < n; i++) {
-
                 int indexOfMin = i;
+                int check = 0;
                 for (int j = i + 1; j < n; j++) {
                     readers += 2;
+                    check++;
                     if (cmp.compare(source[j], source[indexOfMin]) < 0) {
                         indexOfMin = j;
                     }
@@ -56,6 +58,7 @@ public enum SortOps {
                 source[i] = source[indexOfMin];
                 source[indexOfMin] = tmp;
 
+                System.out.println(Arrays.toString(source) + " " + check);
                 readers += 2; writers += 2;
             }
             return new StatsSnapshot(readers, writers);
@@ -66,16 +69,21 @@ public enum SortOps {
         public <T> StatsSnapshot sort(T[] source, Comparator<T> cmp) {
             int readers = 0, writers = 0;
             for (int i = 1, n = source.length; i < n; i++) {
-                T x = source[i]; int j = i;
-
-                for (readers++, writers++; j > 0; readers++) {
-                    if (cmp.compare(x, source[j - 1]) < 0) {
-                        source[i] = source[i - 1];
-                        readers++; writers++;
-                        --j;
+                T x = source[i]; readers++;
+                int j = i - 1;
+                while (j >= 0) {
+                    readers++;
+                    if (cmp.compare(source[j], x) <= 0) {
+                        break;
                     }
+                    readers++;
+                    writers++;
+                    source[j + 1] = source[j];
+                    j = j - 1;
                 }
-                source[j] = x;
+                writers++;
+                source[j + 1] = x;
+
             }
             return new StatsSnapshot(readers, writers);
         }
@@ -107,11 +115,16 @@ public enum SortOps {
 
     public static void main(String[] args) {
 
-        Integer[] arr = new Integer[]{33,11, 1231, -1, 123, 2};
+        // 14 -> 5
+        // 20
+        // 27
+        // 35
+        Integer[] arr = new Integer[]{3,5,1,8,7,2,6};
 
-        SortOps.INSERTION.sort(arr, Integer::compare);
+        // 33
+        StatsSnapshot snapshot =
+                SortOps.SELECTION.sort(arr, Integer::compare);
 
-        System.out.println(Arrays.toString(arr));
-
+        System.out.println(snapshot);
     }
 }

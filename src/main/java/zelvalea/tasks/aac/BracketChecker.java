@@ -1,5 +1,7 @@
 package zelvalea.tasks.aac;
 
+import zelvalea.tasks.acc_lab3.QDequeLinked;
+
 import java.util.Map;
 
 public class BracketChecker {

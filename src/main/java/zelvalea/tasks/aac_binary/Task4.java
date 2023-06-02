@@ -45,18 +45,12 @@ public class Task4 {
             days++;
         }
     }
-    private static int cache;
     public static int
     myComputeDaysToCutTrees(int[] a, int[] k, int target) {
-
-        int c = cache;
-        if (c == 0) {
-            int sum = 0;
-            for (int j : a)
-                sum += j;
-            c = cache = sum;
-        }
-        return compute0(a, k, c, target) + 1;
+        int sum = 0;
+        for (int j : a)
+            sum += j;
+        return compute0(a, k, sum, target) + 1;
     }
     private static int
     compute0(int[] a, int[] k, int sum, long x) {

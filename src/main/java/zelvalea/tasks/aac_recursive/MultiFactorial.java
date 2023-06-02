@@ -1,11 +1,11 @@
 package zelvalea.tasks.aac_recursive;
 
-import java.util.Hashtable;
+public final class MultiFactorial {
 
-public class MultiFactorial {
+    private MultiFactorial() { }
 
     public static void main(String[] args) {
-        System.out.println(12 % 12);
+        System.out.println(multiFactorial(8, 3));
     }
 
     // O(n/k)

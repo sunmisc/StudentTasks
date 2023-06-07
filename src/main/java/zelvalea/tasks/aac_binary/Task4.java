@@ -2,7 +2,6 @@ package zelvalea.tasks.aac_binary;
 
 import java.util.Scanner;
 
-
 public class Task4 {
 
     public static void main(String[] args) {
@@ -65,7 +64,7 @@ public class Task4 {
     }
     private static int
     compute0(int[] a, int[] k, double delta, long x) {
-        int estimatedDays = (int) (x / delta);
+        int estimatedDays = (int) Math.ceil(x / delta);
 
         long cntTrees = x - calculateChoppedTrees(estimatedDays, a, k);
 
@@ -77,7 +76,7 @@ public class Task4 {
         long cntTrees = 0;
         for (int i = 0, n = a.length; i < n; i++) {
             int m = k[i], q = m - 1;
-            cntTrees += (((long) q * numDays) / m) * a[i];
+            cntTrees += (((double) q * numDays) / m) * a[i];
         }
         return cntTrees;
     }

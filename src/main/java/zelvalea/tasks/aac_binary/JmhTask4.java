@@ -7,21 +7,32 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-@State(Scope.Thread)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
-@BenchmarkMode(Mode.Throughput)
+@State(Scope.Benchmark)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+@BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 2, time = 1)
-@Measurement(iterations = 5, time = 1)
+@Measurement(iterations = 5, time = 2)
+@Threads(1)
 @Fork(1)
 public class JmhTask4 {
 
-    static final int[] a = new int[]{1,5,2,4,6};
-    static final int[] k = new int[]{2,3,2,3,3};
-
-    @Param({"122", "10000"})
+    static final int CAPACITY = 32;
+    int[] a, k;
+    @Param({"80", "12000"})
     int x;
+
+    @Setup
+    public void prepare() {
+        a = new int[CAPACITY]; k = new int[CAPACITY];
+        ThreadLocalRandom r = ThreadLocalRandom.current();
+        for (int i = 0; i < CAPACITY; ++i) {
+            a[i] = r.nextInt(1, 10);
+            k[i] = r.nextInt(1, 6);
+        }
+    }
 
     @Benchmark
     public int myFind() {

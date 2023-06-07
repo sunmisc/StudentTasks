@@ -6,17 +6,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Task4 {
 
     public static void main(String[] args) {
-        int[] a = new int[8];
-        int[] k = new int[8];
 
-        for (int i = 0; i < 8; ++i) {
-            a[i] = ThreadLocalRandom.current().nextInt(1, 12);
-            k[i] = ThreadLocalRandom.current().nextInt(1, 2);
-        }
-        int x = ThreadLocalRandom.current().nextInt(10, 488225);
+        int[] a = {2, 3};
+        int[] k = {4, 3};
+        int x = 25;
         System.out.println(binaryDaysToCutTrees(a,k, x));
         System.out.println(legacyDaysToCutTrees(a,k, x));
-        System.out.println(myComputeDaysToCutTrees(a,k, x));
+        System.out.println(myComputeDaysToCutTrees(a,k,x));
 
     }
 
@@ -47,12 +43,13 @@ public class Task4 {
     }
     public static int
     myComputeDaysToCutTrees(int[] a, int[] k, long target) {
-        long delta = calculateChoppedTrees(1, a, k);
-
+        double delta = 0;
+        for (int i = 0, n = a.length; i < n; i++)
+            delta += (double) a[i] / k[i]; // (1.0D / k[i]) * a[i];
         return compute0(a, k, delta, target) + 1;
     }
     private static int
-    compute0(int[] a, int[] k, long delta, long x) {
+    compute0(int[] a, int[] k, double delta, long x) {
         int estimatedDays = (int) (x / delta);
 
         long cntTrees = x - calculateChoppedTrees(estimatedDays, a, k);

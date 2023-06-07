@@ -1,19 +1,26 @@
 package zelvalea.tasks.aac_binary;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Scanner;
 
 
 public class Task4 {
 
     public static void main(String[] args) {
 
-        int[] a = {2, 3};
-        int[] k = {4, 3};
-        int x = 25;
-        System.out.println(binaryDaysToCutTrees(a,k, x));
-        System.out.println(legacyDaysToCutTrees(a,k, x));
-        System.out.println(myComputeDaysToCutTrees(a,k,x));
+        try (Scanner scanner = new Scanner(System.in)) {
+            int[] a = new int[2];
+            int[] k = new int[2];
 
+            a[0] = scanner.nextInt();
+            k[0] = scanner.nextInt();
+
+            a[1] = scanner.nextInt();
+            k[1] = scanner.nextInt();
+
+            int x = scanner.nextInt();
+
+            System.out.println(myComputeDaysToCutTrees(a,k,x));
+        }
     }
 
     public static int
@@ -34,19 +41,27 @@ public class Task4 {
 
     public static int
     legacyDaysToCutTrees(int[] a, int[] k, int target) {
-        for (int days = 1;;) {
-            long treesCut = calculateChoppedTrees(days, a, k);
-            if (treesCut >= target)
-                return days;
-            days++;
+        int startTrees = 0;
+        int startDay = 1;
+        for (int n = a.length;; ++startDay) {
+            for (int i = 0; i < n; ++i) {
+                if (startDay % k[i] == 0)
+                    continue;
+                startTrees += a[i];
+
+                if (startTrees >= target)
+                    return startDay;
+            }
         }
     }
     public static int
     myComputeDaysToCutTrees(int[] a, int[] k, long target) {
         double delta = 0;
-        for (int i = 0, n = a.length; i < n; i++)
-            delta += (double) a[i] / k[i]; // (1.0D / k[i]) * a[i];
-        return compute0(a, k, delta, target) + 1;
+        for (int i = 0, n = a.length; i < n; i++) {
+            int m = k[i];
+            delta += ((double) (m - 1) / m) * a[i];
+        }
+        return compute0(a, k, delta, target);
     }
     private static int
     compute0(int[] a, int[] k, double delta, long x) {
@@ -59,9 +74,11 @@ public class Task4 {
                 : estimatedDays + compute0(a, k, delta, cntTrees);
     }
     static long calculateChoppedTrees(int numDays, int[] a, int[] k) {
-        double cntTrees = 0;
-        for (int i = 0, n = a.length; i < n; i++)
-            cntTrees += ((double) numDays / k[i]) * a[i];
-        return (long) cntTrees;
+        long cntTrees = 0;
+        for (int i = 0, n = a.length; i < n; i++) {
+            int m = k[i], q = m - 1;
+            cntTrees += (((long) q * numDays) / m) * a[i];
+        }
+        return cntTrees;
     }
 }

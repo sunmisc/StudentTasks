@@ -6,12 +6,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Task4 {
 
     public static void main(String[] args) {
-        int[] a = new int[128];
-        int[] k = new int[128];
+        int[] a = new int[8];
+        int[] k = new int[8];
 
-        for (int i = 0; i < 128; ++i) {
-            a[i] = (i & 7) + 5;
-            k[i] = (i % 3) + 2;
+        for (int i = 0; i < 8; ++i) {
+            a[i] = ThreadLocalRandom.current().nextInt(1, 12);
+            k[i] = ThreadLocalRandom.current().nextInt(1, 2);
         }
         int x = ThreadLocalRandom.current().nextInt(10, 488225);
         System.out.println(binaryDaysToCutTrees(a,k, x));
@@ -47,13 +47,12 @@ public class Task4 {
     }
     public static int
     myComputeDaysToCutTrees(int[] a, int[] k, long target) {
-        double delta = 0;
-        for (int i = 0, n = a.length; i < n; i++)
-            delta += (double) a[i] / k[i]; // (1.0D / k[i]) * a[i];
+        long delta = calculateChoppedTrees(1, a, k);
+
         return compute0(a, k, delta, target) + 1;
     }
     private static int
-    compute0(int[] a, int[] k, double delta, long x) {
+    compute0(int[] a, int[] k, long delta, long x) {
         int estimatedDays = (int) (x / delta);
 
         long cntTrees = x - calculateChoppedTrees(estimatedDays, a, k);

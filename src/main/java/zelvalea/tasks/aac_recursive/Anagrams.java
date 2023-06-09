@@ -1,12 +1,13 @@
 package zelvalea.tasks.aac_recursive;
 
+import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Anagrams {
 
     public static void main(String[] args) {
-        String word = "listen";
+        String word = "мама";
 
         List<String> anagrams = generateAnagrams(word);
         System.out.println("Anagrams of "+ word + ": " + anagrams);
@@ -19,17 +20,28 @@ public class Anagrams {
      * что дает общее кол-во перестановок n*(n-1)/(n-2)...*1 => n!
      */
     public static List<String> generateAnagrams(String word) {
-        int n = word.length();
-        if (n == 1)
-            return List.of(word); // singleton
         List<String> anagrams = new LinkedList<>();
-        for (int i = 0; i < n; ++i) {
-            char ch = word.charAt(i);
-            String restOfWord = word.substring(0, i) + word.substring(i + 1);
-
-            generateAnagrams(restOfWord)
-                    .forEach(sub -> anagrams.add(ch + sub));
-        }
+        BitSet bitSet = new BitSet(word.length());
+        nextAnagram("", word, bitSet, anagrams);
         return anagrams;
+    }
+
+    private static void
+    nextAnagram(String prefix, String word,
+                BitSet used,
+                List<String> anagrams) {
+        final int n = word.length();
+        if (prefix.length() == n) {
+            anagrams.add(prefix);
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            if (used.get(i) || (i > 0 && !used.get(i - 1)
+                    && word.charAt(i) == word.charAt(i - 1)))
+                continue;
+            used.set(i);
+            nextAnagram(prefix + word.charAt(i), word, used, anagrams);
+            used.clear(i);
+        }
     }
 }

@@ -7,10 +7,18 @@ import java.util.List;
 public class Anagrams {
 
     public static void main(String[] args) {
-        String word = "мама";
+        String[] inputs = new String[]{
+                "12345",
+                "mama",
+                "1111"};
+        for (String i : inputs) {
 
-        List<String> anagrams = generateAnagrams(word);
-        System.out.println("Anagrams of "+ word + ": " + anagrams);
+            List<String> anagrams = generateAnagrams(i);
+
+            System.out.println(i+" of ("+
+                    anagrams.size() + " | " + MultiFactorial
+                    .multiFactorial(i.length(), 1)+")");
+        }
     }
     /* O(n!)
      * Т.к первая буква в слове может быть выбрана в качестве первой
@@ -36,7 +44,7 @@ public class Anagrams {
             return;
         }
         for (int i = 0; i < n; i++) {
-            if (used.get(i) || (i > 0 && !used.get(i - 1)
+            if (used.get(i) || (i > 0 && used.get(i - 1)
                     && word.charAt(i) == word.charAt(i - 1)))
                 continue;
             used.set(i);
